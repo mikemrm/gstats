@@ -12,6 +12,8 @@ them as a JSON object; you get:
   box or as a basis for your own code
 * a simple WSGI app that returns stats 
 
+**This is a fork of https://github.com/m0n5t3r/gstats/**
+
 ## Intended audience
 ... is mostly developers with (more than) one foot in systems administration 
 looking to graph application parameters; if pretty graphs are your thing, you may
