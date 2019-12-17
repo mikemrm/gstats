@@ -72,12 +72,14 @@ The simplest collecting code looks like this (examples/gunicorn.conf.py):
     from gstats import start_request, end_request
 
     _collector_addr = 'tcp://127.0.0.2:2345'
+    # Because this is passed to pyzmq and used as key it must be a binary
+    _prefix = b'my_app'    
 
     def pre_request(req, worker):
-        start_request(req, collect=True, collector=_collector_addr, prefix='my_app')
+        start_request(req, collect=True, collector_addr=_collector_addr, prefix=_prefix)
 
     def post_request(req, worker):
-        end_request(req, collector=_collector_addr, prefix='my_app')
+        end_request(req, collector_addr=_collector_addr, prefix=_prefix)
 
 The included munin plug-ins are standard wildcard plug-ins; link `plugin_name_` to
 `/etc/munin/plugins/plugin_name_my-label` and reload munin-node; if you want to use 
