@@ -19,13 +19,6 @@ them as a JSON object; you get:
 looking to graph application parameters; if pretty graphs are your thing, you may
 find this useful
 
-## Packages
-* [Ubuntu PPA](https://launchpad.net/~iacobs/+archive/ppa) (Lucid / 10.04 LTS; if
-  needed, I'll add builds for Maverick and / or Natty as well)
-
-if anyone finds this useful enough to build packages for their distro of choice,
-contact me and I'll add the links here
-
 ## Requirements
 * you should be able to speak Python (for the hooks)
 * pyzmq ([PPA for Ubuntu](https://launchpad.net/~iacobs/+archive/zeromq))
@@ -34,6 +27,14 @@ contact me and I'll add the links here
 * python 3.x only
 
 ## Usage
+
+Install it to your virtualenv using:
+
+    pip install git+https://github.com/spapas/gstats/
+
+You should also have `gunicorn` installed to the same venv.
+
+
 The scripts:
 
     gstats-collectd -h
