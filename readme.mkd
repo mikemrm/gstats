@@ -31,6 +31,7 @@ contact me and I'll add the links here
 * pyzmq ([PPA for Ubuntu](https://launchpad.net/~iacobs/+archive/zeromq))
 * [optional] python-setproctitle for nice process names 
   ([PPA for ubuntu](https://launchpad.net/~iacobs/+archive/ppa))
+* python 3.x only
 
 ## Usage
 The scripts:
