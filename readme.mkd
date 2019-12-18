@@ -97,7 +97,8 @@ The included WSGI application can be started with
 
 if you need to configure things, set the `GSTATS_COMM_ADDR` and / or
 `GSTATS_ALLOWED_IPS` environment variables before starting the web server; the 
-results should be available at `http://localhost:8002/_status`
+results should be available at `http://localhost:8002/status` and 
+`http://localhost:8002/rtimes`
 
 ## One last thing
 Due to the way zeromq works, writes will block if collector is down, which means

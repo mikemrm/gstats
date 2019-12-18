@@ -32,7 +32,7 @@ class Application(object):
         """ very simple URL dispatch, a la Cake: /zelink maps to handle_zelink """
         pi = env['PATH_INFO']
         if pi == '/':
-            handler = getattr(self, 'handle_stats%s' % path[0], None)    
+            handler = getattr(self, 'handle_stats', None)    
         else:    
             path = next(filter(None, env['PATH_INFO'].split('/')))
             handler = getattr(self, 'handle_%s' % path, None)
