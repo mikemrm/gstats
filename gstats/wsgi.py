@@ -23,37 +23,45 @@ import os
 
 
 class Application(object):
-    def __init__(self, zmq_context, gstats_addr, allowed_ips=['127.0.0.1']):
+    def __init__(self, zmq_context, gstats_addr, allowed_ips=['127.0.0.1', ]):
         self.ctx = zmq_context
         self.gstats_addr = gstats_addr
         self.allowed_ips = allowed_ips
 
     def dispatch(self, env):
         """ very simple URL dispatch, a la Cake: /zelink maps to handle_zelink """
+        pi = env['PATH_INFO']
+        if pi == '/':
+            handler = getattr(self, 'handle_stats%s' % path[0], None)    
+        else:    
+            path = next(filter(None, env['PATH_INFO'].split('/')))
+            handler = getattr(self, 'handle_%s' % path, None)
 
-        path = filter(None, env['PATH_INFO'].split('/'))
-
-        handler = getattr(self, 'handle_%s' % path[0], None)
         if not handler:
-            return '404 Not Found', '%(PATH_INFO)s not found' % env
+            return '404 Not Found', [b'Not found']
 
         return handler(env)
 
-    def handle__status(self, env):
+    def handle_stats(self, env):
         comm = self.ctx.socket(zmq.REQ)
         comm.connect(self.gstats_addr)
-
-        comm.send('STATS')
+        comm.send(b'STATS')
         ret = comm.recv()
-
         comm.close()
+        return '200 OK', [ret]
 
+    def handle_rtimes(self, env):
+        comm = self.ctx.socket(zmq.REQ)
+        comm.connect(self.gstats_addr)
+        comm.send(b'RTIMES')
+        ret = comm.recv()
+        comm.close()
         return '200 OK', [ret]
 
     def __call__(self, env, start_response):
         if env['REMOTE_ADDR'] not in self.allowed_ips:
             start_response('403 Forbidden', [])
-            return ['You are not allowed to see this!']
+            return [b'You are not allowed to see this!']
 
         status, ret = self.dispatch(env)
         start_response(status, [])
