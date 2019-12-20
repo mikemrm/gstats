@@ -83,3 +83,10 @@ def end_request(req, collector_addr='tcp://127.0.0.2:2345', prefix='my_app'):
 
         return req_time
 
+
+def worker_up(worker):
+    print("WORKER UP ", worker)
+
+
+def worker_down(worker):
+    print("WORKER DOWN ", worker)    
